@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HTML5 Basic Page</title>
+    <!-- 1. 초기화하기 -->
+    <style>
+        * {
+            margin: 0; padding: 0;
+            font-family: '맑은 고딕', 'Malgun Gothic', Gothic, sans-serif;
+        }
+
+        a { text-decoration: none; }
+
+        li { list-style: none; }
+    </style>
+    <!-- 기본 클래스 -->
+    <style>
+        .pull-left { float: left; }
+        .pull-right { float: right; }
+    </style>
+    <!-- 2. 페이지 구성하기 -->
+    <style>
+        body {
+            width: 960px; margin: 0 auto;
+            background: #E6E6E6;
+        }
+
+        #page-wrapper {
+            background: white;
+            margin: 40px 0; padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 6px rgba(100, 100, 100, 0.3);
+        }
+    </style>
+    <!-- 3. 헤더 구성하기 -->
+    <style>
+        #main-header { padding: 40px 50px; }
+
+        .master-title {
+            font-size: 30px;
+            color: #181818;
+        }
+        .master-description {
+            font-size: 15px; font-weight: 500;
+            color: #383838;
+        }
+    </style>
+    <!--  4. 내비게이션 및 풀다운 메뉴 구성하기 -->
+    <style>
+        #main-navigation {
+            border-top: 1px solid #c8c8c8;
+            border-bottom: 1px solid #C8C8C8;
+            margin-bottom: 20px;
+            height: 40px;
+        }
+
+        .outer-menu-item {
+            float: left;
+            position: relative;
+        }
+
+        .outer-menu-item:hover {
+            background: black;
+            color: white;
+        }
+
+        .menu-title {
+            display: block;
+            height: 30px; line-height: 30px;
+            text-align: center;
+            padding: 5px 20px;
+        }
+
+        .inner-menu {
+            display: none;
+            position: absolute;
+            top: 40px; left: 0;
+            width: 100%;
+            background: white;
+            box-shadow: 0 2px 6px rgba(5, 5, 5, 0.9);
+            z-index: 1000;
+            text-align: center;
+        }
+        .inner-menu-item > a {
+            display: block;
+            padding: 5px 10px;
+            color: black;
+        }
+        .inner-menu-item > a:hover {
+            background: black;
+            color: white;
+        }
+    </style>
+    <!-- 5. 검색 양식 추가하기(내비게이션 내부 검색) -->
+    <style>
+        .search-bar {
+            height: 26px;
+            padding: 7px;
+        }
+
+        .input-search {
+            display: block;
+            float: left;
+            background-color: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            border-radius: 15px 0 0 15px;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+            width: 120px; height: 24px;
+            padding: 0 0 0 10px;
+            font-size: 12px;
+            color: #555555;
+        }
+        .input-search:focus {
+            border-color: rgba(82, 168, 236, 0.8);
+            outline: 0;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+        }
+        .input-search-submit {
+            display: block;
+            float: left;
+            width: 50px; height: 26px;
+            border-radius: 0 15px 15px 0;
+            border: 1px solid #CCCCCC;
+            margin-left: -1px;
+            vertical-align: top;
+            display: inline-block;
+        }
+    </style>
+    <!-- 6. 본문 추가하기(중앙내용) -->
+    <style>
+        /* body 태그의 너비: 960px */
+        /* #page-wrapper 태그의 padding 속성으로 내용물 너비는 920px */
+        #content { overflow: hidden; }
+
+        #main-section {
+            float: left;
+            width: 710px;
+        }
+        #main-aside {
+            float: right;
+            width: 200px;
+        }
+    </style>
+    <!-- 6. 본문 추가하기(본문 포스트 위쪽) -->
+    <style>
+        article {
+            padding: 0 10px 20px 10px;
+            border-bottom: 1px solid #C8C8C8;
+        }
+
+        .article-header { padding: 20px 0; }
+        .master-title {
+            font-size: 25px;
+            font-weight: 500;
+            padding-bottom: 10px;
+        }
+        .article-date { font-size: 13px; }
+        .article-body {
+            font-size: 14px;
+        }
+    </style>
+    <!--  6. 본문 추가하기(사이드 메뉴) -->
+    <style>
+        .aside-list { padding: 10px 0 30px 0; }
+        .aside-list > h3 {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        .aside-list li a {
+            margin-left: 8px;
+        }
+        
+        .aside-list li a {
+            margin-left: 8px;
+            font-size: 13px;
+            color: #6C6C6C;
+        }
+    </style>
+
+    <style>
+        input:checked + div {
+        display: none;
+         }
+    </style>
+
+<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $('button').click(function () {
+            $('.page').fadeToggle('slow');
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.outer-menu-item').hover(function () {
+            $(this).find('.inner-menu').show();
+        }, function () {
+            $(this).find('.inner-menu').hide();
+        });
+    });
+
+    //이벤트를 연결한다.
+    window.onload = function () {
+        var clock = document.getElementById('clock');
+        setInterval(function () {
+            var now = new Date();
+            clock.innerHTML = now.toString();
+        }, 1000);
+    };
+</script>
+</head>
+<body>
+    <!-- 전체를 감싸는 태그 -->
+    <div id="page-wrapper">
+        <!-- 헤더 -->
+        <header id="main-header">
+            <hgroup>
+                <h1 class="master-title">강릉여행을 추억하며..★</h1>
+                <h2 class="master-description">Sujin's Page</h2>
+            </hgroup>
+        </header>
+        <!-- 내비게이션 -->
+        <nav id="main-navigation">
+            <div class="pull-left">
+                <ul class="outer-menu">
+                     <li class="outer-menu-item">
+                        <span class="menu-title">강릉</span>
+                        <ul class="inner-menu">
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                        </ul>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title">강릉에서 다녀온 곳</span>
+                        <ul class="inner-menu">
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                        </ul>
+                    </li>
+                    <li class="outer-menu-item">
+                        <span class="menu-title">강릉에서 다녀온 맛집</span>
+                        <ul class="inner-menu">
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            <li class="inner-menu-item"><a href="#">데이터</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="pull-right">
+                <div class="search-bar">
+                    <form>
+                        <input type="text" class="input-search">
+                        <input type="submit" class="input-search-submit" value="검색">
+                    </form>
+                </div>
+            </div>
+        </nav>
+        <!-- 본문 -->
+        <div id="content">
+            <section id="main-section">
+                <article>
+                    <div class="article-header">
+                        <h1 class="article-title">강릉 & 강릉에서 다녀온 곳</h1>
+                        <p class="article-date">2020년 07월 21일</p>
+                    </div>
+                    <div class="article-body">
+                        <img src="강릉.jpg" alt="강릉" width="430" height="280">
+                        <br>
+                        <br>
+                        <input type = "checkbox">
+                        <div>
+                        <p><강릉과 강릉에서 다녀온 장소></p>
+                        <br>
+                        <p>작년 여름방학 때 친구와 같이 여행을 갔던 강릉에 대하여 추억하는 시간을 가지려고 한다. 
+                            친구와 ktx를 타고 떠났던 강릉은 바쁜 생활 중에서 친구와 즉흥적으로 여행을 갔던 곳이다. 
+                            코로나 때문에 강릉에 많은 곳을 방문하지는 않았지만 정말 행복했던 여행이었다.
+                            강릉에 도착한 후 중앙시장에 방문하여 점심을 먹고 구경을 하였다.
+                            유명한 맛집을 찾아 점심을 먹고 친구와 숙소에서 먹을 간식거리를 사며 중앙시장을 구경하였다.
+                            중앙시장에는 강릉에서 유명한 맛집과 먹을거리가 풍부한 곳이니 꼭 한번 가보기를 추천한다.
+                            그리고 난 후 강문해변 근처 카페로 가서 친구와 음료를 마시며 해변 구경을 하였다.
+                            강문해변 근처에 숙소를 잡고 친구와 해변을 구경하며 시간을 보냈다. 그리고 저녁에 근처에서 친구와
+                            저녁을 먹고 짧게 산책을 하며 해변을 구경하고 사진을 찍었다. 그리고 마지막 날에는 유명한 디저트 집을 방문하여 
+                            강릉에서의 마지막 시간을 보냈다. 그 당시 강릉은 날씨도 좋고 풍경도 예뻐서 힐링이 되었던 여행이었다.
+                            심해진 코로나로 인해 여행을 갈 수 없어서 아쉽긴 하지만 마음껏 마스크를 벗고 여행을 다닐 날을 기대하며
+                            강릉 여행을 추억해보는 시간을 가졌다.  
+                        </p>
+                        </div>
+                    </div>
+                </article>
+                <article>
+                    <div class="article-header">
+                        <h1 class="article-title">강릉에서 다녀온 맛집</h1>
+                        <p class="article-date">2020년 07월 22일</p>
+                    </div>
+                    <div class="article-body">
+                        <img src="강릉1.jpg" alt="강릉1" width="430" height="280">
+                        <br>
+                        <button>Toggle Show</button>
+                        <div class="page">
+                        <p><강릉에서 다녀온 맛집></p>
+                        <br>
+                        <p>이번에는 강릉 여행을 하며 다녀온 맛집에 대하여 작성하려고 한다.
+                            강릉에서 처음 먹었던 것은 강릉 중앙시장에 있는 장칼국수였다. 원래 장칼국수로 가장
+                            유명한 맛집을 방문하려고 하였지만 사람이 너무 많아서 결국 시장 안의 다른 장칼국수집에서 
+                            밥을 먹었다. 장칼국수의 맛은 약간 매콤하면서 양이 정말 많았던 기억이 난다. 양이 정말 많아서
+                            결국 다 먹지는 못했지만 맛있었다. 그리고 중앙시장 안의 '베니닭강정'에서 친구와 숙소에서 먹을 닭강정을 
+                            사서 먹었다. 닭강정은 식어도 바삭하고 맛있어서 친구와 숙소에서 맛있게 먹었다. 그리고 강릉에서 정말 유명
+                            하다는 팡파미유라는 빵집을 갔다. 거기는 정말 유명해서 오픈 전부터 사람들이 줄을 서서 기다린다고 한다.
+                            그래서 오픈전에 빵집을 찾아갔는데 더운 날씨에 사람들이 정말 많이 줄을 서 있었다. 그래서 결국 기다리기에는
+                            너무 더워서 포기하고 돌아갔다. 아쉬웠지만 다음에는 꼭 방문해보기로 결심하고 돌아갔다. 
+                            친구와 강릉에서 많은 것을 먹고 너무 배불러서 저녁에는 숙소 근처에 수제 햄버거집을 가서 간단하게 저녁을 
+                            해결하였다. 그리고 마지막으로 강릉의 토부라는 푸딩집을 방문하여 맛별로 푸딩을 구매했다.
+                            강릉에서 먹었던 디저트 중에 가장 맛있었고 푸딩디저트 집도 깔끔하고 예뻐서 기억에 가장 남는다.
+                        </p>
+                        </div>
+                    </div>
+                   
+                </article>
+            </section>
+            <aside id="main-aside">
+                <div class="aside-list">
+                    <h3>카테고리</h3>
+                    <ul>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                    </ul>
+                <div class="aside-list">
+                    <h3>최근 글</h3>
+                    <ul>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                    </ul>   
+                </div>
+            </aside> 
+        </div>
+        <!-- 푸터 -->
+        <footer id="main-footer">
+            <a href="#">Sujin's Page HTML5 Programming</a>
+            <h4 id="clock"></h4>
+        </footer>
+    </div>
+</body>
+</html>
